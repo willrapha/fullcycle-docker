@@ -1,0 +1,6 @@
+FROM ubuntu:latest
+
+# ENTRYPOINT comando fixo
+ENTRYPOINT [ "echo", "Hello " ]
+
+CMD [ "echo", "World" ]

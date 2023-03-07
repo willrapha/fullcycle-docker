@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  charp:
+    image: willrapha/net:prod
+    container_name: net
+    networks:
+      - runnet
+
+  nginx:
+    image: willrapha/nginx:prod
+    container_name: nginx
+    networks:
+      - runnet
+    ports:
+      - "8080:80"
+
+networks:
+  runnet:
+    driver: bridge

@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: db
+    ports:
+      - 1433:1433
+    restart: always # sempre quando o container parar ele é reiniciado
+    tty: true # habilitar para rodar comandos no container
+    volumes:
+      - ./sqlserver:/var/lib/mssqlql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=mssql1Ipw
+    networks:
+      - runnet
+
+networks:
+  runnet:
+    driver: bridge

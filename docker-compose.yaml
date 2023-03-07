@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  charp:
+    build:
+      context: ./net
+      dockerfile: Dockerfile.prod
+    image: willrapha/net:master
+    container_name: net
+    networks:
+      - runnet
+
+  nginx:
+    build:
+      context: ./nginx # pasta onde esta o dockerfile
+      dockerfile: Dockerfile # nome do arquivo dockerfile
+    image: willrapha/nginx:master # nome opcional para imagem
+    # entrypoint: dockerize -wait tcp://net:5001 -timeout 20s /docker-entrypoint.sh # dockerize utilizado para aguardar a aplicação subir nesse caso estamos aguardando subir a aplicação para depois subir o nginx
+    container_name: nginx
+    networks:
+      - runnet
+    ports:
+      - "8080:80"
+    depends_on:
+      - charp # aguarda o container charp ser criado antes
+
+networks:
+  runnet:
+    driver: bridge
